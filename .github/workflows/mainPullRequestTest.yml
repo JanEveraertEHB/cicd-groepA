@@ -13,6 +13,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: build docker containers
+        run: docker-compose build 
+      
+      - name: run docker containers
+        run: docker-compose up -d
+      
+      - name: run npm install
+        run: |
+          cd api
+          npm ci
+          
+      - name: run tests
+        run: |
+          cd api
+          npm run test
 
