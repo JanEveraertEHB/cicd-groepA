@@ -12,7 +12,31 @@ env:
   POSTGRES_DATABASE: test
   
 jobs:
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: build docker containers
+        run: docker-compose build 
+      
+      - name: run docker containers
+        run: docker-compose up -d
+      
+      - name: run npm install
+        run: |
+          cd api
+          npm ci
+          
+      - name: run tests
+        run: |
+          cd api
+          npm run test-ci
+
   build:
+    needs: test
     runs-on: ubuntu-latest
 
     steps:
