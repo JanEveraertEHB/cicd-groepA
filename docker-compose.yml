@@ -5,7 +5,7 @@ services:
   api:
     build: ./api
     container_name: "api"
-    image: crshlab/api-test-cicd
+    image: crshlab/cicd-example-a:latest
     ports:
       - 3000:3000
     environment:
