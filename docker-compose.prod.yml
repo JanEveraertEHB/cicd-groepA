@@ -3,9 +3,7 @@ version: "3.2"
 
 services:
   api:
-    build: ./api
-    container_name: "api"
-    image: ${IMAGE_TAG}
+    image: crshlab/cicd-example-a
     ports:
       - 3000:3000
     environment:
@@ -13,8 +11,6 @@ services:
       POSTGRES_DATABASE:
       POSTGRES_PASSWORD:
       POSTGRES_HOST: db
-    volumes:
-      - ./api/src:/usr/app/src
     depends_on:
       db:
         condition: service_healthy
@@ -35,5 +31,8 @@ services:
     volumes:
       - ./_volumes:/var/lib/postgresql/data
 
-
-  
+  watchtower:
+    image: containrrr/watchtower   
+    command: "--interval 60 --cleanup"   
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

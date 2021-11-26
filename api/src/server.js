@@ -20,7 +20,7 @@ const pg = require('knex')({
 
 
 app.get('/', (req, res) => {
-  res.send("hello world")
+  res.send("hello world - v2")
 })
 
 
