@@ -1,0 +1,38 @@
+version: "3.2"
+
+
+services:
+  api:
+    image: crshlab/api-test-cicd:latest
+    ports:
+      - 3000:3000
+    environment:
+      POSTGRES_USER:
+      POSTGRES_DATABASE:
+      POSTGRES_PASSWORD:
+      POSTGRES_HOST: db
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: "postgres:latest"
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER:
+      POSTGRES_DATABASE:
+      POSTGRES_PASSWORD:
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./_volumes:/var/lib/postgresql/data
+
+  watchtower:
+    image: containrrr/watchtower   
+    command: "--interval 60 --cleanup"   
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
