@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [ main, develop ]
 
+env:
+  POSTGRES_USER: test
+  POSTGRES_PASSWORD: test
+  POSTGRES_DATABASE: test  
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -27,5 +32,5 @@ jobs:
       - name: run tests
         run: |
           cd api
-          npm run test
+          npm run test-ci
 
