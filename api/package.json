@@ -6,8 +6,7 @@
   "scripts": {
     "prod": "node src/index.js",
     "start": "nodemon --legacy-watch src/index.js",
-    "test-watch": "jest --watchAll --detectOpenHandles",
-    "test-ci": "jest --ci --detectOpenHandles --forceExit"
+    "test": "jest --watchAll --detectOpenHandles"
   },
   "author": "",
   "license": "ISC",
